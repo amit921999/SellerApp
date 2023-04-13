@@ -1,7 +1,6 @@
 package service
 
 import (
-	"gorm.io/gorm/clause"
 	"orderManagement/initialize"
 	"orderManagement/models"
 )
@@ -44,7 +43,7 @@ func UpdateOrder(order models.UpdateOrder, orderId string) models.OrderResponse 
 	odr.CurrencyUnit = order.CurrencyUnit
 	odr.Total = order.Total
 
-	result := initialize.DB.Model(&odr).Clauses(clause.Returning{}).Updates(odr)
+	result := initialize.DB.Model(&odr).Updates(odr)
 	if result.Error != nil || result.RowsAffected == 0 {
 		panic(result.Error)
 	}
